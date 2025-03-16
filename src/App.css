@@ -41,6 +41,14 @@
     color: #333;
 }
 
+.buttonDash {
+  background-color: #61b600 !important;
+  width: 150px;       
+  color: white; 
+  border: none !important;   
+  outline: none !important;       
+  box-shadow: none !important;     
+}
 
 .table-header{
   background-color: #d4edda !important;

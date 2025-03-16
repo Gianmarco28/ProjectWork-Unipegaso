@@ -14,7 +14,8 @@ import {
     Table,
     Alert
 } from "reactstrap";
-import { FaTachometerAlt } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, Sector } from "recharts";
 import { generaDatiSimulati } from "../data/simulator";
 
 export default function Dashboard() {
@@ -70,12 +71,13 @@ export default function Dashboard() {
         const result = generaDatiSimulati(stagione, terreno, varieta, potatura, xylellaChecked, metraturaValue, numeroOlivi);
         setSimulationResult({ ...result, numeroOlivi });
     };
+      
 
     return (
         <Container className="py-4">
             <Row className="mb-4">
                 <Col xs="auto" className="dashboard-header">
-                    <FaTachometerAlt className="dashboard-icon" />
+                    <MdDashboard className="dashboard-icon" />
                     <h1 className="dashboard-title">Dashboard</h1>
                 </Col>
             </Row>
@@ -166,64 +168,100 @@ export default function Dashboard() {
 
             <Row className="justify-content-center">
                 <Col xs="auto" className="mt-2 d-flex gap-2">
-                    <Button color="danger" onClick={resetValues}>Azzera campi</Button>
-                    <Button color="success" onClick={handleSimulate}>Simula</Button>
+                    <Button className="buttonDash" onClick={resetValues}>Azzera campi</Button>
+                    <Button className="buttonDash" onClick={handleSimulate}>Simula</Button>
                 </Col>
             </Row>
-
-            <hr />
 
             {error && (
                 <Alert color="danger" className="mt-3">{error}</Alert>
             )}
 
             {simulationResult && (
-                <div className="table-responsive">
-                    <Table bordered className="mt-4 text-center">
-                        <thead>
-                            <tr>
-                                <th className="table-header">Temperatura (°C)</th>
-                                <th className="table-header">Umidità (%)</th>
-                                <th className="table-header">Precipitazioni (%)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{simulationResult.temperatura}°</td>
-                                <td>{simulationResult.umidita}%</td>
-                                <td>{simulationResult.precipitazioni}%</td>
-                            </tr>
-                        </tbody>
-                        <thead>
-                            <tr>
-                                <th className="table-header">Numero Olivi</th>
-                                <th className="table-header">Produzione (kg)</th>
-                                <th className="table-header">Tempo di crescita (giorni)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{simulationResult.numeroOlivi}</td>
-                                <td>{simulationResult.produzione}kg</td>
-                                <td>{simulationResult.tempiCrescita}</td>
-                            </tr>
-                        </tbody>
-                        <thead>
-                            <tr>
-                                <th className="table-header">Efficienza del raccolto</th>
-                                <th className="table-header">Uso delle risorse</th>
-                                <th className="table-header">Performance finanziaria</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{simulationResult.efficienzaRaccolto}</td>
-                                <td>{simulationResult.usoRisorse}</td>
-                                <td>{simulationResult.performance}</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                </div>
+                <>
+                    <div className="table-responsive">
+                        <h2 className="mt-5">Dati generati</h2>
+                        <hr />
+                        <Table bordered className="mt-4 text-center">
+                            <thead>
+                                <tr>
+                                    <th className="table-header">Temperatura (°C)</th>
+                                    <th className="table-header">Umidità (%)</th>
+                                    <th className="table-header">Precipitazioni (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{simulationResult.temperatura}°</td>
+                                    <td>{simulationResult.umidita}%</td>
+                                    <td>{simulationResult.precipitazioni}%</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th className="table-header">Numero Olivi</th>
+                                    <th className="table-header">Produzione (kg)</th>
+                                    <th className="table-header">Tempo di crescita (giorni)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{simulationResult.numeroOlivi}</td>
+                                    <td>{simulationResult.produzione}kg</td>
+                                    <td>{simulationResult.tempiCrescita}</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th className="table-header">Efficienza del raccolto</th>
+                                    <th className="table-header">Uso delle risorse</th>
+                                    <th className="table-header">Performance finanziaria</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{simulationResult.efficienzaRaccolto}</td>
+                                    <td>{simulationResult.usoRisorse}</td>
+                                    <td>{simulationResult.performance}</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </div>
+                    <h2 className="mt-5">Grafici</h2>
+                    <hr />
+                    <Row>
+                        <Col md="6">
+                            <h4>Produzione e Risorse</h4>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart data={[simulationResult]}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="stagione" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="numeroOlivi" fill="#82ca9d" name="Numero Olivi" />
+                                    <Bar dataKey="produzione" fill="#8884d8" name="Produzione (kg)" />
+                                    <Bar dataKey="tempiCrescita" fill="#82ca9d" name="Tempo di crescita (giorni)" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </Col>
+                        <Col md="6">
+                            <h4>Clima</h4>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart data={[simulationResult]}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="stagione" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="temperatura" fill="#82ca9d" name="Temperatura (°C)" />
+                                    <Bar dataKey="umidita" fill="#82ca9d" name="Umidità (%)" />
+                                    <Bar dataKey="precipitazioni" fill="#82ca9d" name="Precipitazioni (%)" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </Col>
+                    </Row>
+                </>
             )}
         </Container>
     );
