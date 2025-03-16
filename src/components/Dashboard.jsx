@@ -15,7 +15,7 @@ import {
     Alert
 } from "reactstrap";
 import { MdDashboard } from "react-icons/md";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, Sector } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LabelList } from "recharts";
 import { generaDatiSimulati } from "../data/simulator";
 
 export default function Dashboard() {
@@ -285,13 +285,19 @@ export default function Dashboard() {
                             <ResponsiveContainer width="100%" height={300}>
                                 <BarChart data={[simulationResult]}>
                                     <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="stagione" />
+                                    <XAxis dataKey=" " />
                                     <YAxis />
                                     <Tooltip />
                                     <Legend />
-                                    <Bar dataKey="numeroOlivi" fill="#82ca9d" name="Numero Olivi" />
-                                    <Bar dataKey="produzione" fill="#8884d8" name="Produzione (kg)" />
-                                    <Bar dataKey="tempiCrescita" fill="#82ca9d" name="Tempo di crescita (giorni)" />
+                                    <Bar dataKey="numeroOlivi" fill="#2E8B57" name="Numero Olivi">
+                                        <LabelList dataKey="numeroOlivi" fill="black" position="center" />
+                                    </Bar>
+                                    <Bar dataKey="produzione" fill="#4682B4" name="Produzione (kg)">
+                                        <LabelList dataKey="produzione" fill="black" position="center" />
+                                    </Bar>
+                                    <Bar dataKey="tempiCrescita" fill="#FFA500" name="Tempo di crescita (giorni)">
+                                        <LabelList dataKey="tempiCrescita" fill="black" position="center" />
+                                    </Bar>
                                 </BarChart>
                             </ResponsiveContainer>
                         </Col>
@@ -300,13 +306,19 @@ export default function Dashboard() {
                             <ResponsiveContainer width="100%" height={300}>
                                 <BarChart data={[simulationResult]}>
                                     <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="stagione" />
+                                    <XAxis dataKey=" " />
                                     <YAxis />
                                     <Tooltip />
                                     <Legend />
-                                    <Bar dataKey="temperatura" fill="#82ca9d" name="Temperatura (°C)" />
-                                    <Bar dataKey="umidita" fill="#82ca9d" name="Umidità (%)" />
-                                    <Bar dataKey="precipitazioni" fill="#82ca9d" name="Precipitazioni (%)" />
+                                    <Bar dataKey="temperatura" fill="#FF6347" name="Temperatura (°C)">
+                                        <LabelList dataKey="temperatura" fill="black" position="center" />
+                                    </Bar>
+                                    <Bar dataKey="umidita" fill="#1E90FF" name="Umidità (%)">
+                                        <LabelList dataKey="umidita" fill="black" position="center" />
+                                    </Bar>
+                                    <Bar dataKey="precipitazioni" fill="#708090" name="Precipitazioni (%)">
+                                        <LabelList dataKey="precipitazioni" fill="black" position="center" />
+                                    </Bar>
                                 </BarChart>
                             </ResponsiveContainer>
                         </Col>
