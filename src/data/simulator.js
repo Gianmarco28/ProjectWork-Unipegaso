@@ -57,7 +57,7 @@ export function generaDatiSimulati(stagione, terreno, varieta, potatura, xylella
     const mediaProduzione = produzione / numeroOlivi;
     const efficienzaRaccolto = mediaProduzione > 12 ? "Alta" : mediaProduzione > 8 ? "Media" : "Bassa";
 
-    const usoRisorse = tempiCrescita <= 90 ? "Ottimale" : tempiCrescita <= 110 ? "Accettabile" : "Scarso";
+    const usoRisorse = tempiCrescita <= 90 ? "Bassa" : tempiCrescita <= 110 ? "Media" : "Alta";
 
     const performanceFinanziaria = (produzione * 5) - (metratura * 2);
     const performance = performanceFinanziaria > 500 ? "Alta" : performanceFinanziaria > 200 ? "Media" : "Bassa";

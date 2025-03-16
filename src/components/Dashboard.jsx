@@ -71,7 +71,51 @@ export default function Dashboard() {
         const result = generaDatiSimulati(stagione, terreno, varieta, potatura, xylellaChecked, metraturaValue, numeroOlivi);
         setSimulationResult({ ...result, numeroOlivi });
     };
-      
+
+
+
+
+    const COLORS = ["#FF0000", "#FFA500", "#00C49F"];
+    const VALUE_MAPPING = { "Bassa": 0, "Media": 1, "Alta": 2 };
+    const PIE_DATA = [
+        { name: "Bassa", value: 1 },
+        { name: "Media", value: 1 },
+        { name: "Alta", value: 1 },
+    ];
+
+    const renderNeedle = (valueIndex) => {
+        const angle = [0, 90, 180][valueIndex];
+        return (
+            <g>
+                <line x1="50%" y1="50%" x2={`${50 + 40 * Math.cos((angle - 180) * (Math.PI / 180))}%`} y2={`${50 + 40 * Math.sin((angle - 180) * (Math.PI / 180))}%`} stroke="black" strokeWidth="2" />
+            </g>
+        );
+    };
+    const renderPieChart = (title, value) => (
+        <Col md="4">
+            <h4>{title}</h4>
+            <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                    <Pie
+                        data={PIE_DATA}
+                        cx="50%"
+                        cy="50%"
+                        startAngle={180}
+                        endAngle={0}
+                        innerRadius={60}
+                        outerRadius={80}
+                        paddingAngle={5}
+                        dataKey="value"
+                    >
+                        {PIE_DATA.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                        ))}
+                    </Pie>
+                    {renderNeedle(VALUE_MAPPING[value])}
+                </PieChart>
+            </ResponsiveContainer>
+        </Col>
+    );
 
     return (
         <Container className="py-4">
@@ -221,7 +265,13 @@ export default function Dashboard() {
                             <tbody>
                                 <tr>
                                     <td>{simulationResult.efficienzaRaccolto}</td>
-                                    <td>{simulationResult.usoRisorse}</td>
+                                    <td>
+                                        {simulationResult.usoRisorse === "Bassa"
+                                            ? "Ottimale"
+                                            : simulationResult.usoRisorse === "Media"
+                                                ? "Accettabile"
+                                                : "Non ottimale"}
+                                    </td>
                                     <td>{simulationResult.performance}</td>
                                 </tr>
                             </tbody>
@@ -260,6 +310,12 @@ export default function Dashboard() {
                                 </BarChart>
                             </ResponsiveContainer>
                         </Col>
+                    </Row>
+
+                    <Row className="mt-5">
+                        {renderPieChart("Efficienza del raccolto", simulationResult.efficienzaRaccolto)}
+                        {renderPieChart("Uso delle risorse", simulationResult.usoRisorse === "Alta" ? "Bassa" : simulationResult.usoRisorse === "Bassa" ? "Alta" : "Media")}
+                        {renderPieChart("Performance finanziaria", simulationResult.performance)}
                     </Row>
                 </>
             )}
