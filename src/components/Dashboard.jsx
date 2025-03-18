@@ -63,7 +63,7 @@ export default function Dashboard() {
             !metratura ||
             metraturaValue < 6
         ) {
-            setError("Compila tutti i campi (Xylella è facoltativo) e inserisci una metratura minima di 6 mq.");
+            setError("Compila tutti i campi e inserisci una metratura minima di 6 mq per poter piantare almeno un albero di Olivo.");
             setSimulationResult(null);
             return;
         }
@@ -218,7 +218,7 @@ export default function Dashboard() {
                 </Row>
 
                 <Row className="justify-content-center">
-                    <Col xs="12" md="6" lg="2">
+                    <Col xs="12" md="6" lg="3">
                         <FormGroup inline>
                             <Label for="metratura">Metratura Terreno (mq)</Label>
                             <Input
@@ -231,7 +231,7 @@ export default function Dashboard() {
                             />
                         </FormGroup>
                     </Col>
-                    <Col xs="12" md="6" lg="2" className="d-flex justify-content-center align-items-center">
+                    <Col xs="12" md="6" lg="3" className="d-flex justify-content-center align-items-center">
                         <FormGroup check inline>
                             <Label check>
                                 <Input
@@ -239,7 +239,7 @@ export default function Dashboard() {
                                     checked={xylellaChecked}
                                     onChange={(e) => setXylellaChecked(e.target.checked)}
                                 />
-                                Xylella
+                                Xylella <span style={{ color: "red", marginLeft: "5px" }}>(campo facoltativo)</span>
                             </Label>
                         </FormGroup>
                     </Col>

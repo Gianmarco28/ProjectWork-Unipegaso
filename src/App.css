@@ -50,6 +50,10 @@
   box-shadow: none !important;     
 }
 
+.buttonDash:hover {
+  background-color: #498801 !important;
+}
+
 .table-header{
   background-color: #d4edda !important;
 } 
@@ -64,6 +68,23 @@
 .text-align{
   text-align: center;
 }
-  
-  
-  
+
+.dropdown-item:active {
+  background-color: #61b600 !important;
+}
+
+.form-check-input:checked{
+  background-color: #61b600 !important;
+}
+
+input[type="checkbox"]:focus {
+  outline: none !important;
+  border-color: #61b600 !important;
+  box-shadow: 0 0 5px #61b600 !important;
+}
+
+input[type="number"]:focus {
+  outline: none !important;
+  border-color: #61b600 !important;
+  box-shadow: 0 0 5px #61b600 !important;
+}
