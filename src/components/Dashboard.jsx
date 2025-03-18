@@ -248,7 +248,7 @@ export default function Dashboard() {
 
             <Row className="justify-content-center">
                 <Col xs="auto" className="mt-2 d-flex gap-2">
-                    <Button className="buttonDash" onClick={resetValues}>Azzera campi</Button>
+                    <Button className="buttonDash" onClick={resetValues}>Reset</Button>
                     <Button className="buttonDash" onClick={handleSimulate}>Simula</Button>
                 </Col>
             </Row>
