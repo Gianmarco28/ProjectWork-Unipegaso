@@ -1,24 +1,11 @@
 import React, { useState, useRef } from "react";
-import {
-    Dropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    Container,
-    Row,
-    Col,
-    Button,
-    FormGroup,
-    Input,
-    Label,
-    Table,
-    Alert
-} from "reactstrap";
+import {Dropdown,DropdownToggle,DropdownMenu,DropdownItem,Container,Row,Col,Button,FormGroup,Input,Label,Table,Alert} from "reactstrap";
 import { MdDashboard } from "react-icons/md";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LabelList } from "recharts";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { generaDatiSimulati } from "../data/simulator";
+
 
 export default function Dashboard() {
     const [stagioneOpen, setStagioneOpen] = useState(false);
@@ -75,41 +62,8 @@ export default function Dashboard() {
     };
 
 
-    const dati = useRef();
-    const tabella = useRef();
-    const grafici = useRef();
 
-    const exportPDF = async () => {
-        const doc = new jsPDF();
-    
-        const datiCanvas = await html2canvas(dati.current);
-        const tabellaCanvas = await html2canvas(tabella.current);
-        const graficiCanvas = await html2canvas(grafici.current);
-    
-        const datiImg = datiCanvas.toDataURL("image/png");
-        const tabellaImg = tabellaCanvas.toDataURL("image/png");
-        const graficiImg = graficiCanvas.toDataURL("image/png");
-    
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const title = "Report Dashboard";
-        const titleWidth = doc.getTextWidth(title);
-        const xPosition = (pageWidth - titleWidth) / 2;
-    
-        doc.setTextColor(255, 0, 0); // Imposta il colore rosso
-        doc.text(title, xPosition, 10); // Testo centrato
-    
-        doc.setTextColor(0, 0, 0); // Ripristina il colore del testo a nero
-        doc.text("Dati Selezionati", 10, 30);
-        doc.addImage(datiImg, "PNG", 10, 40, 190, 30);
-        doc.addImage(tabellaImg, "PNG", 10, 80, 190, 70);
-        doc.addImage(graficiImg, "PNG", 10, 170, 190, 105);
-    
-        doc.save("report-dashboard.pdf");
-    };
-    
-
-
-
+//GRAFICI
     const COLORS = ["#FF0000", "#FFA500", "#00C49F"];
     const VALUE_MAPPING = { "Bassa": 0, "Media": 1, "Alta": 2 };
     const PIE_DATA = [
@@ -152,6 +106,40 @@ export default function Dashboard() {
         </Col>
     );
 
+
+//PDF
+    const dati = useRef();
+    const tabella = useRef();
+    const grafici = useRef();
+
+    const exportPDF = async () => {
+        const doc = new jsPDF();
+    
+        const datiCanvas = await html2canvas(dati.current);
+        const tabellaCanvas = await html2canvas(tabella.current);
+        const graficiCanvas = await html2canvas(grafici.current);
+    
+        const datiImg = datiCanvas.toDataURL("image/png");
+        const tabellaImg = tabellaCanvas.toDataURL("image/png");
+        const graficiImg = graficiCanvas.toDataURL("image/png");
+    
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const title = "Report Dashboard";
+        const titleWidth = doc.getTextWidth(title);
+        const xPosition = (pageWidth - titleWidth) / 2;
+    
+        doc.setTextColor(255, 0, 0); // Imposta il colore rosso
+        doc.text(title, xPosition, 10); // Testo centrato
+    
+        doc.setTextColor(0, 0, 0); // Ripristina il colore del testo a nero
+        doc.text("Dati Selezionati", 10, 30);
+        doc.addImage(datiImg, "PNG", 10, 40, 190, 30);
+        doc.addImage(tabellaImg, "PNG", 10, 80, 190, 70);
+        doc.addImage(graficiImg, "PNG", 10, 170, 190, 105);
+    
+        doc.save("report-dashboard.pdf");
+    };
+
     return (
         <Container className="py-4">
             <Row className="mb-4">
@@ -160,6 +148,7 @@ export default function Dashboard() {
                     <h1 className="dashboard-title">Dashboard</h1>
                 </Col>
             </Row>
+
 
             <div ref={dati}>
                 <Row className="mb-4">
