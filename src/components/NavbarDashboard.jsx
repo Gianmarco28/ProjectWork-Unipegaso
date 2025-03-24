@@ -14,7 +14,7 @@ export default function NavbarDashboard() {
           <img
             src={logo}
             alt="Logo"
-            style={{ width: 130, height: 70}}
+            style={{ width: 120, height: 70}}
           />
         </NavbarBrand>
       </Navbar>
