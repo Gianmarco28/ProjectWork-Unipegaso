@@ -1,12 +1,7 @@
-import { useState } from 'react';
+import logo from "../assets/logo.png";
 import {
   Navbar,
-  NavbarBrand,
-  NavbarToggler,
-  Collapse,
-  Nav,
-  NavItem,
-  NavLink,
+  NavbarBrand
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -15,8 +10,15 @@ export default function NavbarDashboard() {
   return (
     <>
       <Navbar color="dark" dark expand="md">
-        <NavbarBrand href="/">OlivAnalytics</NavbarBrand>  
+        <NavbarBrand href="/">
+          <img
+            src={logo}
+            alt="Logo"
+            style={{ width: 130, height: 70}}
+          />
+        </NavbarBrand>
       </Navbar>
+
     </>
   );
 }
