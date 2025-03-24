@@ -10,7 +10,6 @@ Per installare il progetto localmente, segui questi passaggi:
 1. **Clona il repository**
    ```sh
    git clone https://github.com/Gianmarco28/ProjectWork-Unipegaso.git
-   cd dashboard-oliveti
    ```
 
 2. **Installa le dipendenze**
